@@ -2,6 +2,8 @@ package App;
 
 import java.util.Random;
 import java.util.Scanner;
+import Entidades.Medico;
+import Repositorios.RpilhaMedico;
 import Entidades.ConsultaMedica;
 import Entidades.ConsultaOdontologica;
 import Entidades.Paciente;
@@ -21,6 +23,7 @@ public class App {
             RconsultaOdontologica rconsultaOdontologica = new RconsultaOdontologica();
             ServicoConsultaMedica servicoConsultaMedica = new ServicoConsultaMedica(rconsultaMedica);
             ServicoConsultaOdontologica servicoConsultaOdontologica = new ServicoConsultaOdontologica(rconsultaOdontologica);
+            RpilhaMedico pilhaMedico = new RpilhaMedico();
 
             do {
                 System.out.println("Menu: 1- Consulta Odontológica, 2- Consulta Médica, 3- Notificar, 4- Sair");
@@ -91,7 +94,10 @@ public class App {
                             System.out.println("Hora da Consulta: ");
                             String horaMedico = sc.nextLine();
                             System.out.println("Nome do Médico: ");
-                            String medico = sc.nextLine();
+                            String nomeMedico = sc.nextLine();
+
+                            Medico medico = new Medico(nomeMedico, "CRM" + idMedico);
+                            pilhaMedico.empilhar(medico);
 
                             Paciente pacienteMedico = new Paciente(nomeDoPacienteMedico, cpfMedico, telefoneMedico, enderecoMedico);
                             System.out.println("Especialidade: 1- Cardiologista, 2- Dermatologista, 3- Ginecologista");
@@ -100,17 +106,17 @@ public class App {
 
                             do {
                                 if (tipoEspecialidade == 1) {
-                                    ConsultaMedica consultaMedica = new ConsultaMedica(01, dataMedico, horaMedico, pacienteMedico, "Cardiologista", medico);
+                                    ConsultaMedica consultaMedica = new ConsultaMedica(01, dataMedico, horaMedico, pacienteMedico, "Cardiologista", nomeMedico);
                                     servicoConsultaMedica.adicionarConsultaMedica(consultaMedica);
                                     System.out.println("Consulta com Cardiologista agendada.");
                                     suporteMedico = true;
                                 } else if (tipoEspecialidade == 2) {
-                                    ConsultaMedica consultaMedica = new ConsultaMedica(02, dataMedico, horaMedico, pacienteMedico, "Dermatologista", medico);
+                                    ConsultaMedica consultaMedica = new ConsultaMedica(02, dataMedico, horaMedico, pacienteMedico, "Dermatologista", nomeMedico);
                                     servicoConsultaMedica.adicionarConsultaMedica(consultaMedica);
                                     System.out.println("Consulta com Dermatologista agendada.");
                                     suporteMedico = true;
                                 } else if (tipoEspecialidade == 3) {
-                                    ConsultaMedica consultaMedica = new ConsultaMedica(03, dataMedico, horaMedico, pacienteMedico, "Ginecologista", medico);
+                                    ConsultaMedica consultaMedica = new ConsultaMedica(03, dataMedico, horaMedico, pacienteMedico, "Ginecologista", nomeMedico);
                                     servicoConsultaMedica.adicionarConsultaMedica(consultaMedica);
                                     System.out.println("Consulta com Ginecologista agendada.");
                                     suporteMedico = true;
